@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "qEintdxm+WwYCfBjxcujEKty+F3RB+woM7yFLACOM3Bbeuvh9Fh0TzBuIv6jZJskMem3+aLf0egA0D3mkr++jA==",
+  "dgSpecHash": "dpia+/9yG3lv226x6PEbgZBWOLmdRzoffRVerFg63Cbo0mSknnkr8wbxu7wEPYuAEcasMl5y/QQVrVzefeEl8A==",
   "success": true,
-  "projectFilePath": "C:\\Users\\opilane\\Downloads\\TARpe23Contoso-master\\TARpe23ContosoSandraSark\\ContosoUniversity\\ContosoUniversity.csproj",
+  "projectFilePath": "C:\\Users\\opilane\\Source\\Repos\\ContosoUniversityss\\ContosoUniversity\\ContosoUniversity.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\opilane\\.nuget\\packages\\azure.core\\1.35.0\\azure.core.1.35.0.nupkg.sha512",
     "C:\\Users\\opilane\\.nuget\\packages\\azure.identity\\1.10.3\\azure.identity.1.10.3.nupkg.sha512",
