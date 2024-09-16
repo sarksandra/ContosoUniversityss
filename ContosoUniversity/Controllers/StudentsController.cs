@@ -90,14 +90,7 @@ namespace ContosoUniversity.Controllers
             return View();
         }
 
-        // Create meetod, sisestab andmebaasi uue õpilase. insert new student into database
-        /// <summary>
-        /// Asünkroonne POST meetod, mis sisestab andmebaasi uue õpilase, võttes selleks
-        /// andmed vaatest "student" nimelise objekti seest. Päringule on juurde binditud
-        /// andmebaasi jaoks vajalikud andmeväljad.
-        /// </summary>
-        /// <param name="student">Sisaldab andmebaasi sisestatava õpilase andmeid</param>
-        /// <returns>Tagastab vaate uue õpilasega</returns>
+        
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("ID,LastName,FirstMidName,EnrollmentDate")] Student student)
@@ -110,39 +103,25 @@ namespace ContosoUniversity.Controllers
             }
             return View(student);
         }
-        /// <summary>
-        /// Asünkroonne Details GET meetod. 
-        /// Leiab andmebaasist päringus oleva id järgi õpilase
-        /// ning tagastab vaate koos selle õpilase infoga.
-        /// </summary>
-        /// <param name="id">Otsitava õpilase ID</param>
-        /// <returns>Tagastab kasutajale vaate, koos õpilase andmetega</returns>
-        //Details GET meetod, kuvab ühe õpilase andmed eraldi lehel
-        public async Task<IActionResult> Details(int? id) //id on optional, kuid vajalik eduka tulemuse saavitamiseks
+        
+        public async Task<IActionResult> Details(int? id) 
         {
-            if (id == null) //kui id on tühi/null, siis õpilast ei leita
+            if (id == null) 
             {
                 return NotFound();
             }
 
-            var student = await _context.Students // tehakse õpilase objekt andmebaasis oleva id järgi
+            var student = await _context.Students 
                 .FirstOrDefaultAsync(m => m.ID == id);
 
-            if (student == null) //kui student objekt on tühi/null, siis ka õpilast ei leita
+            if (student == null) 
             { 
                 return NotFound();
             }
-            return View(student); //tagastame kasutajale vaate koos õpilasega
+            return View(student); 
         }
 
-        /// <summary>
-        /// Asünkronne Edit GET meetod.
-        /// Leiab andmebaasist päringus oleva id järgi õpilase
-        /// ning tagastab vaate koos selle õpilase infoga
-        /// kus selle õpilase infot muuta ja üle salvestada saab.
-        /// </summary>
-        /// <param name="id">Otsitava õpilase ID</param>
-        /// <returns>Tagastab kasutajale vaate, koos õpilase muudetavate andmetega.</returns>
+
         [HttpGet]
         public async Task<IActionResult> Edit(int? id)
         {
@@ -159,13 +138,7 @@ namespace ContosoUniversity.Controllers
             return View(studentToEdit);
         }
 
-        /// <summary>
-        /// Asünkroonne POST meetod, mis uuendab andmebaasis oleva õpilase, võttes selleks
-        /// andmed vaatest "modifiedStudent" nimelise objekti seest. Päringule on juurde binditud
-        /// andmebaasi jaoks vajalikud andmeväljad.
-        /// </summary>
-        /// <param name="modifiedStudent"></param>
-        /// <returns>Tagastab kasutaja "Index" vaatesse koos nüüd muudetud õpilasega</returns>
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit([Bind("ID,LastName,FirstMidName,EnrollmentDate")] Student modifiedStudent)
@@ -183,14 +156,7 @@ namespace ContosoUniversity.Controllers
             return View(modifiedStudent);
         }
 
-        /// <summary>
-        /// Asünkroonne Clone POST meetod, mis id järgi "Index" vaatest
-        /// kopeerib ühe olemasoleva õpilase uue sisestusena andmebaasi,
-        /// sealjuures vältides oma eraldi vaatesse minekut. Kogu toiming
-        /// Kuvatakse ainult "Index" vaates.
-        /// </summary>
-        /// <param name="id">Kloonitava õpilase ID</param>
-        /// <returns>Tagastab kasutaja "Index" vaatesse koos kloonitud õpilasega.</returns>
+
         [HttpPost]
         public async Task<IActionResult> Clone(int? id)
         {
