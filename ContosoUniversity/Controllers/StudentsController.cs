@@ -164,9 +164,8 @@ namespace ContosoUniversity.Controllers
             {
                 return NotFound();
             }
-            //var existingStudent = Details(id);
-            //return View(existingStudent);
-            var clonedStudent = await _context.Students // tehakse õpilase objekt andmebaasis oleva id järgi
+
+            var clonedStudent = await _context.Students
                 .FirstOrDefaultAsync(m => m.ID == id);
             if (clonedStudent == null)
             {
@@ -183,14 +182,7 @@ namespace ContosoUniversity.Controllers
             return RedirectToAction("Index");
         }
 
-        /// <summary>
-        /// Asünkroonne Delete GET meetod. 
-        /// Leiab andmebaasist päringus oleva id järgi õpilase
-        /// ning tagastab vaate koos selle õpilase infoga.
-        /// </summary>
-        /// <param name="id">Otsitava õpilase ID</param>
-        /// <returns>Tagastab kasutajale vaate, koos õpilase andmetega</returns>
-        //Delete GET meetod, otsib andmebaasist kaasaantud id järgi õpilast.
+
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null) //kui id on tühi/null, siis õpilast ei leita
