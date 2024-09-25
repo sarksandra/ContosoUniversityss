@@ -13,6 +13,7 @@ namespace ContosoUniversity.Data
         public DbSet<Instructor> Instructors { get; set; }
         public DbSet<OfficeAssignment> OfficeAssignments { get; set; }
         public DbSet<CourseAssignment> CourseAssignments { get; set; }
+        public DbSet<Delinquent> Delinquents { get; set; }
         //public DbSet<AssignedCourseData> AssignedCourseDatas { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -23,6 +24,7 @@ namespace ContosoUniversity.Data
             modelBuilder.Entity<Instructor>().ToTable("Instructors");
             modelBuilder.Entity<OfficeAssignment>().ToTable("OfficeAssignments");
             modelBuilder.Entity<CourseAssignment>().ToTable("CourseAssignments");
+            modelBuilder.Entity<Delinquent>().ToTable("Delinquents");
             //modelBuilder.Entity<AssignedCourseData>().ToTable("CourseAssignments");
             /*modelBuilder.Entity<Course>().ToTable("Course");
             modelBuilder.Entity<Enrollment>().ToTable("Enrollment");
