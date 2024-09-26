@@ -6,16 +6,16 @@ namespace ContosoUniversity.Data
     {
         public static void Initialize(SchoolContext context) 
         { 
-            //teeb kindlaks et andmebaas tehakse, või oleks olemas
+            
             context.Database.EnsureCreated();
 
-            //kui õpilaste tabelis juba on õpilasi, väljub funktsioonist
+            
             if (context.Students.Any())
             {
                 return;
             }
 
-            //objekt õpilastega, mis lisatakse siis, kui õpilasi sisestatud ei ole.
+            
             var students = new Student[] 
             {
                 new Student{FirstMidName="Nipi",LastName="Tiri",EnrollmentDate=DateTime.Parse("2069-04-20")},
@@ -30,15 +30,15 @@ namespace ContosoUniversity.Data
                 new Student{FirstMidName="Sandra",LastName="Sark",EnrollmentDate=DateTime.Parse("2021-09-01")},
             };
 
-            //iga õpilane lisatakse ükshaaval läbi foreach tsükli
+            
             foreach (Student student in students)
             {
                 context.Students.Add(student);
             }
-            //ja andmebaasi muudatused salvestatakse
+            
             context.SaveChanges();
 
-            //eelnev struktuur, kuid kursustega: \/
+            
             var courses = new Course[]
             {
                 new Course{CourseID=1050,Title="Keemia",Credits=3},

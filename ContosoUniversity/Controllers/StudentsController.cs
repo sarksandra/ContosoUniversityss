@@ -13,12 +13,7 @@ namespace ContosoUniversity.Controllers
         {
             _context = context;
         }
-        /// <summary>
-        /// Asünkroonne Index GET meetod.
-        /// Kuvab kasutajale kõik õpilased andmebaasist.
-        /// </summary>
-        /// <returns>Tagastab kasutajale Index vaate koos kõigi õpilastega</returns>
-        // get all for index, retreive all students
+        
         public async Task<IActionResult> Index()
         {
             return View(await _context.Students.ToListAsync());
@@ -79,11 +74,7 @@ namespace ContosoUniversity.Controllers
         }
         */
 
-        /// <summary>
-        /// Mitteasünkroonne GET meetod mis kuvab vaate uue õpilase andmete sisestuseks.
-        /// </summary>
-        /// <returns>Tagastab vaate kasutajale.</returns>
-        // Create get, haarab vaatest andmed, mida create meetod vajab.
+        
         [HttpGet]
         public IActionResult Create() 
         { 
@@ -200,19 +191,12 @@ namespace ContosoUniversity.Controllers
 
             return View(student);
         }
-        /// <summary>
-        /// Asünkroonne DeleteConfirmed meetod.
-        /// Kustutab kaasaantud ID alusel ära õpilase andmebaasist ning tagastab kasutaja Index vaatesse.
-        /// </summary>
-        /// <param name="id">Kustutatava õpilase ID</param>
-        /// <returns>Kustutab õpilase andmed andmebaasist ära ning tagastab kasutajale Index vaate</returns>
-        //Delete POST meetod, teostab andmebaasis vajaliku muudatuse. ehk kustutab andme ära
+        
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var student = await _context.Students.FindAsync(id); //otsime andmebaasist õpilast id järgi ja paneme ta "student" nimelisse muutujasse.
-
+            var student = await _context.Students.FindAsync(id); 
             _context.Students.Remove(student);
             await _context.SaveChangesAsync();
 
