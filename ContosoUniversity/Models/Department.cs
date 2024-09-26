@@ -16,7 +16,7 @@ namespace ContosoUniversity.Models
         [DisplayFormat(DataFormatString ="{0:yy:MM:dd}", ApplyFormatInEditMode = true)]
         public DateTime StartDate { get; set; }
         //enda omad
-        public int NameID { get; set; }
+        public DateTime EndDate { get; set; }
         [StringLength(100, MinimumLength = 3)]
         public string DateName { get; set; }
         public int? InstructorID { get; set; }
