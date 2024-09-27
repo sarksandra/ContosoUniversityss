@@ -16,7 +16,7 @@ namespace ContosoUniversity.Models
         public int ID { get; set; }
         public string LastName { get; set; }
         public string FirstMidName { get; set; }
-        public RecentViolation? recentViolation { get; set; }
+        public RecentViolation? RecentViolation { get; set; }
 
     }
 }

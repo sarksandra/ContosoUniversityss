@@ -13,12 +13,7 @@ namespace ContosoUniversity.Controllers
         {
             _context = context;
         }
-        /// <summary>
-        /// Asünkroonne Index GET meetod.
-        /// Kuvab kasutajale kõik õpilased andmebaasist.
-        /// </summary>
-        /// <returns>Tagastab kasutajale Index vaate koos kõigi õpilastega</returns>
-        // get all for index, retreive all students
+   
         public async Task<IActionResult> Index()
         {
             return View(await _context.Students.ToListAsync());
@@ -79,11 +74,7 @@ namespace ContosoUniversity.Controllers
         }
         */
 
-        /// <summary>
-        /// Mitteasünkroonne GET meetod mis kuvab vaate uue õpilase andmete sisestuseks.
-        /// </summary>
-        /// <returns>Tagastab vaate kasutajale.</returns>
-        // Create get, haarab vaatest andmed, mida create meetod vajab.
+      
         [HttpGet]
         public IActionResult Create() 
         { 
