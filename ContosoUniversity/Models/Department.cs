@@ -17,8 +17,8 @@ namespace ContosoUniversity.Models
         public DateTime StartDate { get; set; }
         //enda omad
         public DateTime EndDate { get; set; }
-        [StringLength(100, MinimumLength = 3)]
-        public string DateName { get; set; }
+        [StringLength(50, MinimumLength = 3)]
+        public string DepartmentDog { get; set; }
         public int? InstructorID { get; set; }
         [Timestamp]
         public byte? RowVersion { get; set; }

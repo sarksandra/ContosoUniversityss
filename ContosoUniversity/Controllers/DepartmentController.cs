@@ -39,7 +39,7 @@ namespace ContosoUniversity.Controllers
             }
             return View(department);
         }
-
+        
         [HttpGet]
         public IActionResult Create()
         {
@@ -49,10 +49,10 @@ namespace ContosoUniversity.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        //lisa enda 1
-        public async Task<IActionResult> Create([Bind("Name,Budget,StartDate,RowVersion,InstructorID,HonorStudents")]Department department)
+        
+        public async Task<IActionResult> Create([Bind("Name,Budget,StartDate,RowVersion,InstructorID,DepartmentDog")]Department department)
         {
-            if(!ModelState.IsValid)
+            if(ModelState.IsValid)
             {
                 _context.Add(department);
                 await _context.SaveChangesAsync();

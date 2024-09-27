@@ -13,7 +13,7 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(Model => Model.DateName)
+                @Html.DisplayNameFor(Model => Model.DepartmentDog)
             </th>
             <th>
                 @Html.DisplayNameFor(Model => Model.Name)
@@ -35,13 +35,19 @@
         {
             <tr>
                 <td>
-                    @Html.DisplayFor(modelItem => department.DepartmentID)
+                    @Html.DisplayFor(modelItem => department.DepartmentDog)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => department.Name)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => department.Budget)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => department.Administrator.FullName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => department.RowVersion)
                 </td>
                 <td colspan="2">
                     <a asp-action="Edit" asp-route-id="@department.DepartmentID" class="btn btn-secondary">Edit</a>
