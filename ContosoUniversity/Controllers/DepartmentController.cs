@@ -27,17 +27,17 @@ namespace ContosoUniversity.Controllers
             {
                 return NotFound();
             }
-            string query = "SELECT * From department where DepartmentID = {0}";
-            var department = await _context.Departments
+            string query = "SELECT * From Departments where DepartmentID = {0}";
+            var departmentToSee = await _context.Departments
                 .FromSqlRaw(query, id)
                 .Include(d => d.Administrator)
                 .AsNoTracking()
                 .FirstOrDefaultAsync();
-            if (department == null)
+            if (departmentToSee == null)
             {
                 return NotFound();
             }
-            return View(department);
+            return View(departmentToSee);
         }
         
         [HttpGet]
