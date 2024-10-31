@@ -154,13 +154,65 @@ namespace ContosoUniversity.Controllers
             }
             return View(instructor);
         }
-       
+        [HttpGet]
+        public async Task<IActionResult> Edit(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+            var instructorToEdit = await _context.Instructors
+                .FirstOrDefaultAsync(m => m.ID == id);
+            if (instructorToEdit == null)
+            {
+                return NotFound();
+            }
+            return View(instructorToEdit);
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Edit([Bind("ID,LastName,FirstMidName,HireDate, OfficeAssignment")] Instructor modifiedStudent)
+        {
+            if (ModelState.IsValid)
+            {
+                if (modifiedStudent.ID == null)
+                {
+                    return BadRequest();
+                }
+                _context.Instructors.Update(modifiedStudent);
+                await _context.SaveChangesAsync();
+                return RedirectToAction("Index");
+            }
+            return View(modifiedStudent);
+        }
 
 
-     
-      
+        public async Task<IActionResult> Clone(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var instructor = await _context.Instructors.AsNoTracking().FirstOrDefaultAsync(m => m.ID == id);
+            if (instructor == null)
+            {
+                return NotFound();
+            }
 
 
+            var clonedInstructor = new Instructor
+            {
+                FirstMidName = instructor.FirstMidName,
+                LastName = instructor.LastName,
+                HireDate = instructor.HireDate,
+            };
+
+            _context.Instructors.Add(clonedInstructor);
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(Index));
+
+        }
 
 
     }
