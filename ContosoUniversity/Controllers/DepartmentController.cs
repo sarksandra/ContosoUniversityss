@@ -123,7 +123,27 @@ namespace ContosoUniversity.Controllers
 
             return RedirectToAction(nameof(Index));
         }
+        [HttpGet]
+        public async Task<IActionResult> BaseOn(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+            var department = await _context.Departments
+                .Include(d => d.Administrator)
+                .FirstOrDefaultAsync(m => m.DepartmentID == id);
+
+
+            if (department == null)
+            {
+                return NotFound();
+            }
+            ViewData["InstructorID"] = new SelectList(_context.Instructors, "ID", "FullName");
+            return View(department);
+        }
         
+
 
 
     }
