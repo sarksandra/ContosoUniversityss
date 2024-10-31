@@ -94,9 +94,62 @@ namespace ContosoUniversity.Controllers
         {
             return View();
         }
-        public IActionResult Delete()
+        public async Task<IActionResult> Delete(int? id)
         {
-            return View();
+            if (id == null) 
+            {
+                return NotFound();
+            }
+
+            var delinquent = await _context.Delinquents
+                .FirstOrDefaultAsync(m => m.ID == id);
+
+            if (delinquent == null)
+            {
+                return NotFound();
+            }
+
+            return View(delinquent);
         }
+     
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeleteConfirmed(int id)
+        {
+            var delinquent = await _context.Delinquents.FindAsync(id); 
+            _context.Delinquents.Remove(delinquent);
+            await _context.SaveChangesAsync();
+
+            return RedirectToAction(nameof(Index));
+        }
+         public async Task<IActionResult> Clone(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var delinquent = await _context.Delinquents.AsNoTracking().FirstOrDefaultAsync(m => m.ID == id);
+            if (delinquent == null)
+            {
+                return NotFound();
+            }
+
+
+            var clonedDelinquents = new Delinquent
+            {
+                FirstMidName = delinquent.FirstMidName,
+                LastName = delinquent.LastName,
+                RecentViolation = delinquent.RecentViolation,
+            };
+
+            _context.Delinquents.Add(clonedDelinquents);
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(Index));
+
+        }
+
+
+   
     }
 }

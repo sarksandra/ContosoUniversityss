@@ -1,7 +1,7 @@
 ﻿@model ContosoUniversity.Models.Delinquent
 
 @{
-    ViéwData["Title"] = "Delete";
+    ViewData["Title"] = "Delete";
 }
 
 <h1>Delete</h1>
@@ -33,4 +33,9 @@
             @Html.DisplayNameFor(model => model.RecentViolation)
         </dd>
     </dl>
+
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="ID" />
+        <input type="submit" value="Delete" class="btn btn-danger" /> | <a asp-action="Index">Cancel</a>
+    </form>
 </div>

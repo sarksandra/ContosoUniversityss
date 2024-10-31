@@ -11,27 +11,27 @@
 <div class=" =row">
     <div class="col-md-4">
         <form asp-action="Create">
-            <div asp-asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-check group">
                 <label asp-for="LastName" class"control-label"></label>
-                <input asp-formaction="LastName" class="form-control" />
-                <span asp-asp-validation-for="LastName" class="text-danger"></span>
+                <input asp-for="LastName" class="form-control" />
+                <span asp-validation-for="LastName" class="text-danger"></span>
 
             </div>
             <div class="form-check group">
                 <label asp-for="FirstMidName" class"control-label"></label>
-                <input asp-formaction="FirstMidName" class="form-control" />
-                <span asp-asp-validation-for="FirstMidName" class="text-danger"></span>
+                <input asp-for="FirstMidName" class="form-control" />
+                <span asp-validation-for="FirstMidName" class="text-danger"></span>
 
             </div>
             <div class="form-check group">
                 <label asp-for="RecentViolation" class"control-label"></label>
-                <input asp-formaction="RecentViolation" class="form-control" />
-                <span asp-asp-validation-for="RecentViolation" class="text-danger"></span>
+                <input asp-for="RecentViolation" class="form-control" />
+                <span asp-validation-for="RecentViolation" class="text-danger"></span>
 
             </div>
             <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
+                <input type="submit" value="Create" class="btn btn-primary" formmethod="post" />
             </div>
             
         </form>
