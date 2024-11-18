@@ -157,22 +157,7 @@ namespace ContosoUniversity.Controllers
 
         }
 
-        [HttpGet]
-        public async Task<IActionResult> BaseOn(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-            string query = "SELECT * FROM Departments WHERE DepartmentID = {0}";
-            var department = await _context.Departments.FromSqlRaw(query, id).Include(d => d.Administrator).AsNoTracking().FirstOrDefaultAsync();
-            if (department == null)
-            {
-                return NotFound();
-            }
-            ViewData["InstructorID"] = new SelectList(_context.Instructors, "ID", "FullName");
-            return View(department);
-        }
+       
 
     }
 }
