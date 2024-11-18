@@ -84,6 +84,51 @@ namespace ContosoUniversity.Data
                 context.Enrollments.Add(enrollment);
             }
             context.SaveChanges();
+            if (context.Instructors.Any())
+            {
+                return;
+            }
+            var instructors = new Instructor[]
+            {
+                new Instructor{FirstMidName = "Ying", LastName = "Yang",  HireDate = DateTime.Parse("2019-09-01")},
+                new Instructor{FirstMidName = "Original", LastName = "Name", HireDate = DateTime.Parse("1776-09-01")},
+                new Instructor{FirstMidName = "This", LastName = "One",  HireDate = DateTime.Parse("1776-09-01")},
+            };
+            context.Instructors.AddRange(instructors);
+            context.SaveChanges();
+
+
+            if (context.Departments.Any())
+            {
+                return;
+            }
+            var departments = new Department[]
+            {
+                new Department{
+                    Name="IT",
+                    Budget=0,
+                    StartDate=DateTime.Parse("3024-06-03"),
+                    InstructorID=1,
+                    DepartmentDog="Kiisu",
+                },
+                new Department{
+                    Name="Language",
+                    Budget=0,
+                    StartDate=DateTime.Parse("2024-01-12"),
+                    InstructorID=1,
+                    DepartmentDog="Miisu",
+                },
+                new Department{
+                    Name="Everything else",
+                    Budget=0,
+                    StartDate=DateTime.Parse("3011-08-04"),
+                    DepartmentDog="Tanno",
+                },
+            };
+            context.Departments.AddRange(departments);
+            context.SaveChanges();
+           
+
         }
 
     }

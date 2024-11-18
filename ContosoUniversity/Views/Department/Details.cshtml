@@ -1,45 +1,49 @@
 ﻿@model ContosoUniversity.Models.Department
 
 @{
-    ViewData["Title"] = "Details";
+    ViewData["Title"] = "BaseOn";
 }
+<h1>Edit</h1>
+<h4>Department</h4>
+<hr />
 
-<h1>Details</h1>
-
-<div>
-    <h4>Department</h4>
-    <hr />    
-    <dl class="row">
-        <dt @Html.DisplayNameFor(model => model.Name) </dt>
-        <dt @Html.DisplayFor(model => model.Name) </dt>
-        <dt @Html.DisplayFor(model => model.Administrator) </dt>
-        <dt @Html.DisplayFor(model => model.Administrator.FullName) </dt>
-        <dt @Html.DisplayNameFor(model => model.Budget) </dt>
-        <dt @Html.DisplayFor(model => model.Budget) </dt>
-        <dt @Html.DisplayNameFor(model => model.StartDate) </dt>
-        <dt @Html.DisplayFor(model => model.StartDate) </dt>
-        <dt @Html.DisplayFor(model => model.DepartmentDog) </dt>
-        <dt>
-            @{
-                if(Model.EndDate != null)
-                {
-                    @Html.DisplayNameFor(Model => Model.EndDate)
-                }
-            }
-        </dt>
-        <dt>
-            @{
-                if (Model.EndDate != null)
-                {
-                    @Html.DisplayNameFor(Model => Model.EndDate)
-                }
-            }
-        </dt>
-
-    </dl>
-</div>
-<div>
-    <a asp-action="Edit" asp-route-id="@Model.DepartmentID" class="btn btn-secondary" >Edit</a>
-    @*<a asp-action="Clone" asp-route-id="@Model.ID">Duplicate</a>*@
-    <a asp-action="Index">Back to List</a>
+<div class="row">
+    <div class"col-md-4">
+        <form asp-action="Edit">
+            <input type="hidden" asp-for="RowVersion" value="@Html.Raw("0")" />
+            <input type="hidden" asp-for="DepartmentID" value="@Model.DepartmentID" />
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Name" class="control-label"></label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Budget" class="control-label"></label>
+                <input asp-for="Budget" class="form-control" />
+                <span asp-validation-for="Budget" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="StartDate" class="control-label"></label>
+                <input asp-for="StartDate" class="form-control" />
+                <span asp-validation-for="StartDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DepartmentDog" class="control-label"></label>
+                <input asp-for="DepartmentDog" class="form-control" />
+                <span asp-validation-for="DepartmentDog" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="InstructorID" class="control-label"></label>
+                <select asp-for="InstructorID" class="form-control" asp-items="ViewBag.InstructorID">
+                    <option value="">-- Select Administrator --</option>
+                </select>
+                <span asp-validation-for="InstructorID" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Edit" class="btn btn-primary">
+                <a asp-action="Index">Cancel</a>
+            </div>
+        </form>
+    </div>
 </div>

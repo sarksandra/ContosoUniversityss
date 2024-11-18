@@ -1,5 +1,6 @@
 ﻿@model ContosoUniversity.Models.Department
 
+
 @{
     ViewData["Title"] = "BaseOn";
 }
@@ -35,11 +36,10 @@
                 <span asp-validation-for="DepartmentDog" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="submit" name="actionType" value="Make" class="btn btn-primary" />
-                <input type="submit" name="actionType" value="Make & delete" class="btn btn-primary" />
-                <a asp-action="Index" class="btn btn-secondary">Cancel</a>
+                <input type="submit" name="dd" value="Make" class="btn btn-primary" />
+                <input type="submit" name="dd" value="Make & delete" class="btn btn-primary" />
+                <a asp-action="Index" class="btn btn-secondary">Back to List</a>
             </div>
         </form>
     </div>
 </div>
-
