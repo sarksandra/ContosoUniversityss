@@ -10,7 +10,7 @@
         "projectUniqueName": "C:\\Users\\opilane\\Source\\Repos\\ContosoUniversityss\\ContosoUniversity\\ContosoUniversity.csproj",
         "projectName": "ContosoUniversity",
         "projectPath": "C:\\Users\\opilane\\Source\\Repos\\ContosoUniversityss\\ContosoUniversity\\ContosoUniversity.csproj",
-        "packagesPath": "C:\\Users\\opilane\\source\\repos",
+        "packagesPath": "C:\\Users\\opilane\\.nuget\\packages\\",
         "outputPath": "C:\\Users\\opilane\\Source\\Repos\\ContosoUniversityss\\ContosoUniversity\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
@@ -84,7 +84,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.400/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.204/PortableRuntimeIdentifierGraph.json"
         }
       }
     }
