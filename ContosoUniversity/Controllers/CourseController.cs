@@ -24,7 +24,7 @@ namespace ContosoUniversity.Controllers
             {
                 return NotFound();
             }
-            var course = await _context.Courses.FirstOrDefaultAsync(m => m.CourseID == id);
+            var course = await _context.Courses.FirstOrDefaultAsync(s => s.CourseID == id);
             if (course == null)
             {
                 return NotFound();
@@ -66,7 +66,7 @@ namespace ContosoUniversity.Controllers
             {
                 return NotFound();
             }
-            var biggestCourseId = _context.Courses.OrderByDescending(m => m.CourseID).First();
+            var biggestCourseId = _context.Courses.OrderByDescending(s => s.CourseID).First();
             var clonedCourse = new Course
             {
                 CourseID = biggestCourseId.CourseID + 1,
@@ -87,7 +87,7 @@ namespace ContosoUniversity.Controllers
                 ViewBag.Description = "Create a new course";
                 return View();
             }
-            var course = await _context.Courses.FirstOrDefaultAsync(m => m.CourseID == id);
+            var course = await _context.Courses.FirstOrDefaultAsync(s => s.CourseID == id);
             if (course == null)
             {
                 return NotFound();
@@ -103,13 +103,13 @@ namespace ContosoUniversity.Controllers
             {
                 if (course.CourseID == 0)
                 {
-                    var biggestCourseId = _context.Courses.OrderByDescending(m => m.CourseID).First();
+                    var biggestCourseId = _context.Courses.OrderByDescending(s => s.CourseID).First();
                     course.CourseID = biggestCourseId.CourseID + 1;
                     _context.Add(course);
                     await _context.SaveChangesAsync();
                     return RedirectToAction("Index");
                 }
-                var existingCourse = _context.Courses.AsNoTracking().FirstOrDefault(m => m.CourseID == course.CourseID);
+                var existingCourse = _context.Courses.AsNoTracking().FirstOrDefault(s => s.CourseID == course.CourseID);
                 if (existingCourse == null)
                 {
                     return NotFound();
