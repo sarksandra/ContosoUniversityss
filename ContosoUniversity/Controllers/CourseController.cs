@@ -79,7 +79,7 @@ namespace ContosoUniversity.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> CreateEdit(int? id)
+        public async Task<IActionResult> Create(int? id)
         {
             if (id == null)
             {
@@ -97,7 +97,7 @@ namespace ContosoUniversity.Controllers
             return View(course);
         }
         [HttpPost]
-        public async Task<IActionResult> CreateEdit(Course course)
+        public async Task<IActionResult> Create(Course course)
         {
             if (ModelState.IsValid)
             {
