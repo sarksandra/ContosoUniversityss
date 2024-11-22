@@ -29,10 +29,12 @@
                 <td> @Html.DisplayFor(modelItem => department.StartDate) </td>
                 <td> @Html.DisplayFor(modelItem => department.RowVersion) </td>
                 <td>                 
-                    <a asp-action="Edit" asp-route-id="@department.DepartmentID" class="btn btn-dark">Edit </a>
-                    <a asp-action="BaseOn" asp-route-id="@department.DepartmentID" class="btn btn-dark">Base On </a>       
-                    <a asp-action="Delete" asp-route-id="@department.DepartmentID" class="btn btn-dark">Delete</a>
+                    <a asp-action="Edit" asp-route-id="@department.DepartmentID">Edit </a>
+                    <a asp-action="BaseOn" asp-route-id="@department.DepartmentID">BaseOn</a>       
+                    <a asp-action="Delete" asp-route-id="@department.DepartmentID">Delete</a>
                 </td>
             </tr>
         }
     </tbody>
+</table>
+
