@@ -66,13 +66,16 @@ namespace ContosoUniversity.Controllers
             {
                 return NotFound();
             }
+
             var biggestCourseId = _context.Courses.OrderByDescending(s => s.CourseID).First();
+
             var clonedCourse = new Course
             {
                 CourseID = biggestCourseId.CourseID + 1,
                 Title = course.Title,
                 Credits = course.Credits,
             };
+
             _context.Add(clonedCourse);
             await _context.SaveChangesAsync();
             return RedirectToAction("Index");
@@ -86,8 +89,11 @@ namespace ContosoUniversity.Controllers
                 ViewBag.Title = "Create";
                 ViewBag.Description = "Create a new course";
                 return View();
+
             }
+
             var course = await _context.Courses.FirstOrDefaultAsync(s => s.CourseID == id);
+
             if (course == null)
             {
                 return NotFound();
@@ -97,27 +103,25 @@ namespace ContosoUniversity.Controllers
             return View(course);
         }
         [HttpPost]
-        public async Task<IActionResult> Create(Course course)
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Create(int? id, [Bind("CourseID,Title,Credits")] Course course, string actionType)
         {
-            if (ModelState.IsValid)
+
+            if (actionType == "Create")
             {
-                if (course.CourseID == 0)
-                {
-                    var biggestCourseId = _context.Courses.OrderByDescending(s => s.CourseID).First();
-                    course.CourseID = biggestCourseId.CourseID + 1;
-                    _context.Add(course);
-                    await _context.SaveChangesAsync();
-                    return RedirectToAction("Index");
-                }
-                var existingCourse = _context.Courses.AsNoTracking().FirstOrDefault(s => s.CourseID == course.CourseID);
-                if (existingCourse == null)
-                {
-                    return NotFound();
-                }
+                var CourseId = await _context.Courses.MaxAsync(m => (int?)m.CourseID) ?? 0;
+                course.CourseID = CourseId + 1;
+
+                _context.Add(course);
+                await _context.SaveChangesAsync();
+                return RedirectToAction("Index");
+            }
+            else if (actionType == "Edit" && id != null)
+            {
+
                 _context.Update(course);
                 await _context.SaveChangesAsync();
                 return RedirectToAction("Index");
-
             }
             return View(course);
         }
