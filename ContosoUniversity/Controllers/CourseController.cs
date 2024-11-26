@@ -82,46 +82,31 @@ namespace ContosoUniversity.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Create(int? id)
+        public async Task<IActionResult> Create()
         {
-            if (id == null)
-            {
-                ViewBag.Title = "Create";
-                ViewBag.Description = "Create a new course";
-                return View();
-
-            }
-
-            var course = await _context.Courses.FirstOrDefaultAsync(s => s.CourseID == id);
-
-            if (course == null)
-            {
-                return NotFound();
-            }
-            ViewBag.Title = "Edit";
-            ViewBag.Description = "Edit a course";
-            return View(course);
+            return View();
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(int? id, [Bind("CourseID,Title,Credits")] Course course, string actionType)
+        public async Task<IActionResult> Create([Bind("CourseID,Title,Credits")] Course course)
         {
-
-            if (actionType == "Create")
+            if (!ModelState.IsValid)
             {
-                var CourseId = await _context.Courses.MaxAsync(m => (int?)m.CourseID) ?? 0;
-                course.CourseID = CourseId + 1;
-
-                _context.Add(course);
+                _context.Courses.Add(course);
                 await _context.SaveChangesAsync();
-                return RedirectToAction("Index");
+                return RedirectToAction(nameof(Index));
             }
-            else if (actionType == "Edit" && id != null)
+            var CourseId = await _context.Courses.MaxAsync(m => (int?)m.CourseID) ?? 0;
+            course.CourseID = CourseId + 1;
+            return View(course);
+        }
+        public async Task<ActionResult> Edit([Bind("CourseID,Title,Credits")] Course course)
+        {
+            if (ModelState.IsValid)
             {
-
-                _context.Update(course);
+                _context.Courses.Update(course);
                 await _context.SaveChangesAsync();
-                return RedirectToAction("Index");
+                return RedirectToAction(nameof(Index));
             }
             return View(course);
         }
