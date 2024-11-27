@@ -111,7 +111,27 @@ namespace ContosoUniversity.Controllers
             await _context.SaveChangesAsync();
             return RedirectToAction("Index");
         }
+        [HttpGet]
+        public async Task<IActionResult> Create()
+        {
+            return View();
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Create([Bind("CourseID,Title,Credits")] Course course)
+        {
+            if (ModelState.IsValid)
+            {
+                var CourseId = await _context.Courses.MaxAsync(m => (int?)m.CourseID) ?? 0;
+                course.CourseID = CourseId + 1;
+                _context.Courses.Add(course);
+                await _context.SaveChangesAsync();
+                return RedirectToAction(nameof(Index));
+            }
+            return View(course);
+        }
 
-       
+
+
     }
 }
