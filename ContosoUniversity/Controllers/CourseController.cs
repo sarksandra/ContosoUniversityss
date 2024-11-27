@@ -18,7 +18,10 @@ namespace ContosoUniversity.Controllers
             return View(await _context.Courses.ToListAsync());
         }
 
-        
+       
+
+
+
         [HttpGet]
         public async Task<IActionResult> Edit(int? id)
         {
