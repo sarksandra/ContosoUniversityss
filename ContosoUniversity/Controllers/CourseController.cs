@@ -18,57 +18,72 @@ namespace ContosoUniversity.Controllers
             return View(await _context.Courses.ToListAsync());
         }
 
-        [HttpGet]
-        public async Task<IActionResult> Delete(int? id)
+        public async Task<IActionResult> DetailsDelete(int? id, string actionType)
         {
             if (id == null)
             {
                 return NotFound();
             }
-            var course = await _context.Courses.FirstOrDefaultAsync(m => m.CourseID == id);
 
+            var course = await _context.Courses.FirstOrDefaultAsync(m => m.CourseID == id);
             if (course == null)
             {
                 return NotFound();
             }
-
+            ViewData["actionType"] = actionType ?? "Details";
             return View(course);
         }
+
         [HttpPost]
         [ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
+        public async Task<IActionResult> DetailsDeleteConfirmed(int id, string actionType, Course course)
         {
-            var course = await _context.Courses.FindAsync(id);
-
-
-            _context.Courses.Remove(course);
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            if (actionType == "Details")
+            {
+                _context.Courses.Add(course);
+                await _context.SaveChangesAsync();
+                return RedirectToAction("Index");
+            }
+            else
+            {
+                _context.Courses.Remove(course);
+                await _context.SaveChangesAsync();
+                return RedirectToAction("Index");
+            }
         }
-        public async Task<IActionResult> DetailsDelete(int? id)
+        [HttpGet]
+        public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
             {
                 return NotFound();
             }
-            var course = await _context.Courses.FirstOrDefaultAsync();
-            if (course == null)
+            var studentToEdit = await _context.Courses
+                .FirstOrDefaultAsync(m => m.CourseID == id);
+            if (studentToEdit == null)
             {
                 return NotFound();
             }
-            return View(course);
-
+            return View(studentToEdit);
         }
-        public async Task<IActionResult> Edit([Bind("Title, Credits")] Course course)
+
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Edit([Bind("Title,Credits")] Course modifiedStudent)
         {
-            if (!ModelState.IsValid)
+            if (ModelState.IsValid)
             {
-                _context.Courses.Update(course);
+                if (modifiedStudent.CourseID == null)
+                {
+                    return BadRequest();
+                }
+                _context.Courses.Update(modifiedStudent);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction("Index");
             }
-            return View(course);
+            return View(modifiedStudent);
         }
 
         public async Task<IActionResult> Clone(int? id)
@@ -97,23 +112,6 @@ namespace ContosoUniversity.Controllers
             return RedirectToAction("Index");
         }
 
-        [HttpGet]
-        public async Task<IActionResult> Create()
-        {
-            ViewData["InstructorID"] = new SelectList(_context.Courses, "Title", "Credits");
-            return View();
-        }
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind(" Title, Credits")] Course course)
-        {
-            if (ModelState.IsValid)
-            {
-                _context.Courses.Add(course);
-                await _context.SaveChangesAsync();
-                return RedirectToAction("Index");
-            }
-            return View();
-        }
+       
     }
 }
