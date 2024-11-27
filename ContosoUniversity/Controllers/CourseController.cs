@@ -51,13 +51,40 @@ namespace ContosoUniversity.Controllers
                 return RedirectToAction("Index");
             }
         }
+        [HttpGet]
+        public async Task<IActionResult> Edit(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+            var studentToEdit = await _context.Courses
+                .FirstOrDefaultAsync(m => m.CourseID == id);
+            if (studentToEdit == null)
+            {
+                return NotFound();
+            }
+            return View(studentToEdit);
+        }
 
 
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Edit([Bind("Title,Credits")] Course modifiedStudent)
+        {
+            if (ModelState.IsValid)
+            {
+                if (modifiedStudent.CourseID == null)
+                {
+                    return BadRequest();
+                }
+                _context.Courses.Update(modifiedStudent);
+                await _context.SaveChangesAsync();
+                return RedirectToAction("Index");
+            }
+            return View(modifiedStudent);
+        }
 
-
-
-
-        
 
         public async Task<IActionResult> Clone(int? id)
         {
