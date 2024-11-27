@@ -1,6 +1,7 @@
 ﻿using ContosoUniversity.Data;
 using ContosoUniversity.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 
 namespace ContosoUniversity.Controllers
@@ -17,42 +18,57 @@ namespace ContosoUniversity.Controllers
             return View(await _context.Courses.ToListAsync());
         }
 
-        [HttpGet, ActionName("DetailsDelete")]
-        public async Task<IActionResult> Details(int? id, string name)
+        [HttpGet]
+        public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
             {
                 return NotFound();
             }
-            var course = await _context.Courses.FirstOrDefaultAsync(s => s.CourseID == id);
+            var course = await _context.Courses.FirstOrDefaultAsync(m => m.CourseID == id);
+
             if (course == null)
             {
                 return NotFound();
             }
 
-            if (name != "Details" && name != "Delete")
-            {
-                return NotFound();
-            }
-            ViewBag.Title = name;
             return View(course);
         }
-
-        [HttpPost, ActionName("Delete")]
-        public async Task<IActionResult> DeleteCourse(int? courseId)
+        [HttpPost]
+        [ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            if (courseId == null)
+            var course = await _context.Courses.FindAsync(id);
+
+
+            _context.Courses.Remove(course);
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(Index));
+        }
+        public async Task<IActionResult> DetailsDelete(int? id)
+        {
+            if (id == null)
             {
                 return NotFound();
             }
-            var course = await _context.Courses.FindAsync(courseId);
+            var course = await _context.Courses.FirstOrDefaultAsync();
             if (course == null)
             {
                 return NotFound();
             }
-            _context.Courses.Remove(course);
-            await _context.SaveChangesAsync();
-            return RedirectToAction("Index");
+            return View(course);
+
+        }
+        public async Task<IActionResult> Edit([Bind("Title, Credits")] Course course)
+        {
+            if (!ModelState.IsValid)
+            {
+                _context.Courses.Update(course);
+                await _context.SaveChangesAsync();
+                return RedirectToAction(nameof(Index));
+            }
+            return View(course);
         }
 
         public async Task<IActionResult> Clone(int? id)
@@ -84,31 +100,20 @@ namespace ContosoUniversity.Controllers
         [HttpGet]
         public async Task<IActionResult> Create()
         {
+            ViewData["InstructorID"] = new SelectList(_context.Courses, "Title", "Credits");
             return View();
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("CourseID,Title,Credits")] Course course)
-        {
-            if (!ModelState.IsValid)
-            {
-                _context.Courses.Add(course);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
-            }
-            var CourseId = await _context.Courses.MaxAsync(m => (int?)m.CourseID) ?? 0;
-            course.CourseID = CourseId + 1;
-            return View(course);
-        }
-        public async Task<ActionResult> Edit([Bind("CourseID,Title,Credits")] Course course)
+        public async Task<IActionResult> Create([Bind(" Title, Credits")] Course course)
         {
             if (ModelState.IsValid)
             {
-                _context.Courses.Update(course);
+                _context.Courses.Add(course);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction("Index");
             }
-            return View(course);
+            return View();
         }
     }
 }

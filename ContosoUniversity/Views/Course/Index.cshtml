@@ -23,21 +23,23 @@
         </tr>
     </thead>
     <tbody>
-        @foreach (var department in Model)
+        @foreach (var course in Model)
         {
             <tr>
                 <td>
-                    @Html.DisplayFor(modelItem => department.CourseID) 
+                    @Html.DisplayFor(modelItem => course.CourseID) 
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => department.Title)
+                    @Html.DisplayFor(modelItem => course.Title)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => department.Credits) 
+                    @Html.DisplayFor(modelItem => course.Credits)
                 </td>
                 <td>
-                    <a asp-action="Edit" asp-route-id="@department.CourseID">Edit </a>
-                    <a asp-action="DetailsDelete" asp-route-id="@department.CourseID">Delete </a>
+                    <a asp-action="Edit" asp-route-id="@course.CourseID">Edit </a>
+                    <a asp-action="DetailsDelete" asp-route-id="@course.CourseID">Delete </a>
+                    <a asp-action="Clone" asp-route-id="@course.CourseID">Clone</a>
+
             </tr>
         }
     </tbody>
